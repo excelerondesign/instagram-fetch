@@ -43,17 +43,12 @@ foreach($results as $item) {
     if ($i == $max) break;
     $i++;
     
-    $type = $item['media_type'];
-    $src = $item['media_url'];
-    $caption = $item['caption'];
-    $link = $item['permalink'];
-    
     $tplProperties = [
         'idx' => $i,
-        'type' => $type,
-        'src' => $src,
-        'link' => $link,
-        'caption' => $caption
+        'type' => $item['media_type'],
+        'src' => $item['media_url'],
+        'link' => $item['permalink'],
+        'caption' => $item['caption']
     ];
     
     $resourceTpl = parseTpl($tpl, $tplProperties);
