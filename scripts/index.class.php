@@ -33,7 +33,13 @@ class Instagram {
         return $this->_access_token;
     }
 
-    public function makeGraphRequest() {
+    /**
+     * makeGraphRequest
+     * Get the media from the Instagram Basic Display API
+     *
+     * @return array
+     */
+    public function makeGraphRequest():array {
         $rest_client = $this->modx->getService('rest', 'rest.modRest');
         $request = $this->getRequestUrl();
         $response = $rest_client->get($request);
