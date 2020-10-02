@@ -1,9 +1,9 @@
 <?php
 include_once $modx->getOption('getresources.core_path',null,$modx->getOption('core_path').'components/getresources/').'include.parsetpl.php';
 
-const API_URL = 'https://graph.instagram.com/me/media?fields=';
+$API_URL = 'https://graph.instagram.com/me/media?fields=';
     
-const API_FIELDS = 'caption,media_url,media_type,permalink,timestamp,username';
+$API_FIELDS = 'caption,media_url,media_type,permalink,timestamp,username';
 
 $_access_token = $modx->getOption('instagram_access_token');
 $max_photos = $modx->getOption('max', $scriptProperties, 8);
