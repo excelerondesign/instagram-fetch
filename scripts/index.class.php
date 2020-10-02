@@ -1,13 +1,13 @@
 <?php
 
-class Instagram {
+class BasicDisplay {
     const API_URL = 'https://graph.instagram.com/me/media?fields=';
 
     const API_FIELDS = 'caption,media_url,media_type,permalink,timestamp,username';
 
-    private $_access_token;
+    private $access_token;
 
-    private $_request_url;
+    private $request_url;
 
     public $modx;
 
@@ -18,28 +18,31 @@ class Instagram {
     }
 
     public function setRequestUrl() {
-        $this->_request_url = self::API_URL . self::API_URL . '&access_token=' . $this->getToken();
+        $this->request_url = self::API_URL . self::API_URL . '&access_token=' . $this->getToken();
     }
 
     public function getRequestUrl():string {
-        return $this->_request_url;
+        return $this->request_url;
     }
 
     public function setToken() {
-        $this->_access_token = $modx->getOption('instagram_access_token');
+        $this->access_token = $modx->getOption('instagram_access_token');
     }
 
     public function getToken():string {
-        return $this->_access_token;
+        return $this->access_token;
     }
+}
+
+class Instagram extends BasicDisplay {
 
     /**
      * makeGraphRequest
      * Get the media from the Instagram Basic Display API
      *
-     * @return array
+     * @return array | void
      */
-    public function makeGraphRequest():array {
+    public function makeGraphRequest(){
         $rest_client = $this->modx->getService('rest', 'rest.modRest');
         $request = $this->getRequestUrl();
         $response = $rest_client->get($request);
@@ -113,8 +116,8 @@ class Instagram {
      * @param integer $max
      * @return string
      */
-    public function makePhotos($tpl, string $type, array $data, int $max = 8):string {
-        static $_tplCache;
+    public function makePhotos($tpl, string $type, array $data, int $max = 8) {
+        static $tpl_cache = [];
         $i = 0;
         $output = [];
         foreach($data as $item) {
@@ -122,7 +125,7 @@ class Instagram {
             if ($i === $max) break;
             $i++;
 
-            $output[]= $this->makeTpl($_tplCache, $tpl, $type, [
+            $output[]= $this->makeTpl($tpl_cache, $tpl, $type, [
                 'idx' => $i,
                 'type' => $item['media_type'],
                 'src' => $item['media_url'],
@@ -148,21 +151,17 @@ class Instagram {
     public function getPhotos($tpl, int $max) {
         if (empty($tpl)) return false;
 
-        $tplSettings = [
-            'type' => '@CHUNK',
-            'value' => $tpl
-        ];
+        $type = '@CHUNK';
 
         if (strpos($tpl, '@INLINE:') === 0) {
             $endPos = strpos($tpl, ':');
-            $tplSettings['type'] = '@INLINE';
-            $tplSettings['value'] = substr($tpl, $endPos + 1);
+            $type = '@INLINE';
+            $tpl = substr($tpl, $endPos + 1);
         }
-        if (!is_array($tplSettings) || !isset($tplSettings['type']) || !isset($tplSettings['value'])) return false;
 
         $response = $this->makeGraphRequest();
 
-        $elements = $this->makePhotos($tplSettings['value'], $tplSettings['type'], $response, $max);
+        $elements = $this->makePhotos($type, $tpl, $response, $max);
 
         return $elements;
     }
