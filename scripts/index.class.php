@@ -5,9 +5,9 @@ class BasicDisplay {
 
     const API_FIELDS = 'caption,media_url,media_type,permalink,timestamp,username';
 
-    private string $access_token;
+    protected $access_token;
 
-    private string $request_url;
+    protected $request_url;
 
     public $modx;
 
