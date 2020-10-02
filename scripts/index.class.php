@@ -5,15 +5,15 @@ class BasicDisplay {
 
     const API_FIELDS = 'caption,media_url,media_type,permalink,timestamp,username';
 
-    private $access_token;
+    private string $access_token;
 
-    private $request_url;
+    private string $request_url;
 
     public $modx;
 
-    public function __construct(\modX $modx) {
+    public function __construct(\modX $modx, $token) {
         $this->modx = $modx;
-        $this->setToken();
+        $this->setToken($token);
         $this->setRequestUrl();
     }
 
@@ -25,8 +25,8 @@ class BasicDisplay {
         return $this->request_url;
     }
 
-    public function setToken() {
-        $this->access_token = $modx->getOption('instagram_access_token');
+    public function setToken($token) {
+        $this->access_token = $token;
     }
 
     public function getToken():string {
