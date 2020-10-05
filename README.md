@@ -29,19 +29,19 @@ return $Instagram->getPhotos($tpl, $max);
 ## Options
 
 | Option | Default | Description                         |
-| ------ | ------- | ----------------------------------- |
+| ------ | :-----: | ----------------------------------- |
 | tpl    |         | Template for each Instagram post    |
-| max    | 8       | Maximum amount of posts to generate |
+| max    |    8    | Maximum amount of posts to generate |
 
 ## Placeholders
 
 | Title   | Placeholder | Description                                                                                  |
-| ------- | ----------- | -------------------------------------------------------------------------------------------- |
-| Type    | type        | Type of media (Image, Video, Carousel) useful for debugging in case Facebook changes the API |
-| Source  | src         | Link to the image source                                                                     |
-| Link    | link        | The direct link to the Instagram post                                                        |
-| Caption | caption     | Associated post caption                                                                      |
-| Index   | idx         | 1-based index variable                                                                       |
+| ------- | :---------: | -------------------------------------------------------------------------------------------- |
+| Type    |    type     | Type of media (Image, Video, Carousel) useful for debugging in case Facebook changes the API |
+| Source  |     src     | Link to the image source                                                                     |
+| Link    |    link     | The direct link to the Instagram post                                                        |
+| Caption |   caption   | Associated post caption                                                                      |
+| Index   |     idx     | 1-based index variable                                                                       |
 
 ## Example
 
