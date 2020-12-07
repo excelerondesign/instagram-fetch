@@ -23,7 +23,7 @@ class InstagramAuth {
     }
 
     public function __get(string $name) {
-        return this[$name]
+        return this[$name];
     }
 
     public function getLoginLink() {
